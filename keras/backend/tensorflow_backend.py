@@ -3638,3 +3638,26 @@ def foldr(fn, elems, initializer=None, name=None):
         Same type and shape as initializer
     """
     return tf.foldr(fn, elems, initializer=initializer, name=name)
+
+def scan(fn, elems, initializer=None, name=None):
+    """Scan elems using fn from left to right.
+    This is like `foldl` with each intermediate result returned.
+
+    # Arguments
+        fn: Callable that will be called upon each element in elems and an
+            accumulator, for instance `lambda acc, x: acc + x`
+        elems: tensor
+        initializer: The first value used (`elems[0]` in case of None)
+        name: A string name for the scan node in the graph
+
+    # Returns
+        A tensor or (possibly nested) sequence of tensors. Each tensor packs the results of applying fn to tensors unpacked from elems along the first dimension, and the previous accumulator value(s), from left to right (first to last).
+
+    # Example:
+    ```python
+        elems = np.array([1, 2, 3, 4, 5])
+        sum = scan(lambda acc, x: acc + x, elems)
+        #sum == [1, 3, 6, 10, 15]
+    ```
+    """
+    return tf.scan(fn, elems, initializer=initializer, name=name)
